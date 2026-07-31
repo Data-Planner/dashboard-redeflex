@@ -1,24 +1,18 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { BarChart3, ClipboardCheck, FileUp, LayoutList, Menu, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
-import { Button } from "@/components/ui/button";
+import { Link, useRouterState, type LinkProps } from "@tanstack/react-router";
+import { type ReactNode } from "react";
 
-const navigation = [
-  { to: "/estrutura", label: "Estrutura", icon: LayoutList },
-  { to: "/importar", label: "Importar", icon: FileUp },
-  { to: "/conferencia", label: "Conferência", icon: ClipboardCheck },
-  { to: "/relatorio", label: "Relatório", icon: BarChart3 },
+const areas = [
+  { to: "/", label: "Relatórios", ico: "▣", match: (path: string) => !path.startsWith("/admin") },
+  { to: "/admin/calendario", label: "Painel Administrativo", ico: "⚙", match: (path: string) => path.startsWith("/admin") },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  void pathname;
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="rf-header-gradient sticky top-0 z-40 text-white shadow-md">
-        <div className="mx-auto flex h-[62px] max-w-[1560px] items-center gap-4 px-4 lg:px-6">
-          <Link to="/" className="flex shrink-0 items-center gap-4" onClick={() => setOpen(false)}>
+      <header className="rf-header-gradient sticky top-0 z-40 text-white shadow-md print:hidden">
+        <div className="mx-auto flex min-h-[62px] max-w-[1560px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2 lg:px-6">
+          <Link to="/" className="flex shrink-0 items-center gap-4">
             <span className="text-[17px] font-extrabold tracking-[3.5px] whitespace-nowrap">
               REDE<span className="font-light opacity-75">FLEX</span>
             </span>
@@ -30,47 +24,43 @@ export function AppShell({ children }: { children: ReactNode }) {
               </small>
             </span>
           </Link>
-          <nav className="ml-auto hidden items-center gap-1 md:flex" aria-label="Navegação principal">
-            {navigation.map(({ to, label, icon: Icon }) => (
+          <nav className="ml-auto flex items-center gap-1" aria-label="Áreas">
+            {areas.map((area) => (
               <Link
-                key={to}
-                to={to}
-                className="flex items-center gap-2 rounded-md border border-transparent px-3 py-1.5 text-[11.5px] font-semibold text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-                activeProps={{ className: "bg-white/20 border-white/40 text-white" }}
+                key={area.to}
+                to={area.to}
+                className={`flex items-center gap-2 rounded-md border px-3 py-1.5 text-[11.5px] font-semibold transition-colors ${
+                  area.match(pathname)
+                    ? "border-white/40 bg-white/20 text-white"
+                    : "border-transparent text-white/80 hover:bg-white/15 hover:text-white"
+                }`}
               >
-                <Icon className="h-4 w-4" />
-                {label}
+                <span aria-hidden>{area.ico}</span>
+                {area.label}
               </Link>
             ))}
           </nav>
-          <Button
-            className="ml-auto text-white hover:bg-white/15 hover:text-white md:hidden"
-            variant="ghost"
-            size="icon"
-            onClick={() => setOpen(!open)}
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-          >
-            {open ? <X /> : <Menu />}
-          </Button>
         </div>
-        {open && (
-          <nav className="grid gap-1 border-t border-white/20 p-3 md:hidden">
-            {navigation.map(({ to, label, icon: Icon }) => (
-              <Link
-                key={to}
-                to={to}
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-semibold text-white/85"
-                activeProps={{ className: "bg-white/20 text-white" }}
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </Link>
-            ))}
-          </nav>
-        )}
       </header>
       <main className="mx-auto max-w-[1560px] px-4 py-5 lg:px-6 lg:pb-8">{children}</main>
     </div>
+  );
+}
+
+export function SubNav({ items }: { items: ReadonlyArray<{ to: LinkProps["to"]; label: string; ico: string }> }) {
+  return (
+    <nav className="mb-6 -mx-4 flex flex-wrap gap-1 border-b bg-card px-4 py-2 shadow-sm lg:-mx-6 lg:px-6 print:hidden" aria-label="Cadastros">
+      {items.map((item) => (
+        <Link
+          key={String(item.to)}
+          to={item.to}
+          className="flex items-center gap-2 rounded-md px-3 py-1.5 text-[11.5px] font-semibold text-muted-foreground transition-colors hover:bg-muted"
+          activeProps={{ className: "bg-primary/10 text-primary" }}
+        >
+          <span aria-hidden>{item.ico}</span>
+          {item.label}
+        </Link>
+      ))}
+    </nav>
   );
 }
