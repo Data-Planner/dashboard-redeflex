@@ -169,6 +169,63 @@
   );
 }
 
+@utility rf-group-head {
+  background: linear-gradient(95deg, var(--brand) 0%, var(--brand-dark) 100%);
+  color: #fff;
+  padding: 11px 20px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@utility rf-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.06);
+}
+
+@utility rf-card-none {
+  background: color-mix(in oklab, var(--warning) 12%, white);
+  border-color: color-mix(in oklab, var(--warning) 40%, white);
+}
+
+@utility rf-bar {
+  position: relative;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+
+  & > i {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+  }
+}
+
+@utility rf-bar-ok {
+  background: var(--success);
+}
+
+@utility rf-bar-bad {
+  background: var(--destructive);
+}
+
+@utility rf-chip-new {
+  background: color-mix(in oklab, var(--warning) 14%, white);
+  color: oklch(0.5266 0.1234 66.44);
+  border: 1px solid color-mix(in oklab, var(--warning) 45%, white);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
