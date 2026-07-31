@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ReportPage } from "@/components/indicator-pages";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,15 +20,5 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: DashboardPage,
+  component: ReportPage,
 });
-
-function DashboardPage() {
-  return (
-    <iframe
-      src="/dashboard-indicadores.html"
-      title="RedeFlex · Dashboard Indicadores"
-      className="h-screen w-screen border-0"
-    />
-  );
-}
