@@ -80,15 +80,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "RedeFlex" },
-      { name: "description", content: "Gestão de indicadores RedeFlex." },
+      { title: "RedeFlex · Dashboard Indicadores" },
+      { name: "description", content: "Painel de vendas e evolução da produtividade da RedeFlex: metas, ativações, críticos e atingimento DDD." },
       { name: "author", content: "RedeFlex" },
-      { property: "og:title", content: "RedeFlex" },
-      { property: "og:description", content: "Gestão de indicadores RedeFlex." },
+      { property: "og:title", content: "RedeFlex · Dashboard Indicadores" },
+      { property: "og:description", content: "Painel de vendas e evolução da produtividade da RedeFlex: metas, ativações, críticos e atingimento DDD." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "RedeFlex" },
-      { name: "twitter:description", content: "Gestão de indicadores RedeFlex." },
+      { name: "twitter:title", content: "RedeFlex · Dashboard Indicadores" },
+      { name: "twitter:description", content: "Painel de vendas e evolução da produtividade da RedeFlex: metas, ativações, críticos e atingimento DDD." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/deee2f49-6d20-4e1a-8458-0d8ba797617e/id-preview-58bebb3f--73a45f6d-8220-4658-817f-fab1f64bb078.lovable.app-1785540142371.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/deee2f49-6d20-4e1a-8458-0d8ba797617e/id-preview-58bebb3f--73a45f6d-8220-4658-817f-fab1f64bb078.lovable.app-1785540142371.png" },
     ],
     links: [
       {
